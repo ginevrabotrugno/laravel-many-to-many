@@ -83,7 +83,7 @@ class ProjectsController extends Controller
         $project->update($data);
 
         if(array_key_exists('technologies', $data)){
-            $project->technologies->sync($data['technologies']);
+            $project->technologies()->sync($data['technologies']);
         } else {
             $project->technologies()->detach();
         }
