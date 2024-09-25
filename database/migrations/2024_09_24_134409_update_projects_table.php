@@ -15,7 +15,7 @@ return new class extends Migration
             // creo colonna foireign key (dopo l'id)
             $table->unsignedBigInteger('type_id')->nullable()->after('id');
 
-            $table->foreign('type_id',)
+            $table->foreign('type_id')
                 ->references('id')
                 ->on('types')
                 ->onDelete('set null');
