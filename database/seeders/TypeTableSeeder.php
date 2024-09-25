@@ -14,7 +14,7 @@ class TypeTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = ['HTML', 'CSS', 'Javascript', 'Vue.js', 'Php', 'Laravel'];
+        $data = ['HTML', 'CSS', 'Javascript', 'Php'];
 
         foreach ($data as $type) {
             $new_type = new Type();
