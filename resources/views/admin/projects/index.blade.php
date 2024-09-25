@@ -23,7 +23,8 @@
                     <th>Title</th>
                     <th>Start Date</th>
                     <th>Status</th>
-                    <th class="text-center">Category</th>
+                    <th class="text-center">Type</th>
+                    <th class="text-center">Technologies</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -36,13 +37,20 @@
                         <td> {{ $project->status }} </td>
                         <td class="text-center">
                             @if ($project->type)
-                                <span class="badge text-bg-info">
-                                    <a href="{{route('admin.projectsPerType', $project->type)}}" class="text-white link-offset-2 link-underline link-underline-opacity-0">
-                                        {{ $project->type->name }}
-                                    </a>
-                                </span>
+                                <a href="{{route('admin.projectsPerType', $project->type)}}" class="btn btn-light">
+                                    {{ $project->type->name }}
+                                </a>
                             @else
                                 ---
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            @if ($project->technologies)
+                                @forelse($project->technologies as $technology)
+                                    <span class="badge text-bg-info">{{$technology->name}}</span>
+                                @empty
+                                    ---
+                                @endforelse
                             @endif
                         </td>
                         <td class="text-center">
