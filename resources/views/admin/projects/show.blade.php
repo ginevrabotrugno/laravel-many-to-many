@@ -29,6 +29,18 @@
 
 
         <ul class="list-group list-group-flush m-3">
+            @if (count($project->technologies) !== 0)
+                <li class="list-group-item">
+                    <strong>Tecnologie: </strong>
+                    <span>
+                        @foreach ($project->technologies as $technology)
+                        <span class="badge text-bg-info">
+                            {{ $technology->name }}
+                        </span>
+                        @endforeach
+                    </span>
+                </li>
+            @endif
             @if ($project->type)
                 <li class="list-group-item">
                     <strong>Categoria: </strong>
