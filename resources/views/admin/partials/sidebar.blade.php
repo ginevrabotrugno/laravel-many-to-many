@@ -19,15 +19,21 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.typeProjects') }}" class="nav-link text-white">
-                <i class="fa-solid fa-tag"></i>
-                <span>Type Projects</span>
+            <a href="{{ route('admin.technologies.index') }}" class="nav-link text-white">
+                <i class="fa-solid fa-gear"></i>
+                <span>Technologies</span>
             </a>
         </li>
         <li>
             <a href="{{ route('admin.types.index') }}" class="nav-link text-white">
                 <i class="fa-solid fa-bars-progress"></i>
                 <span>Types</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.typeProjects') }}" class="nav-link text-white">
+                <i class="fa-solid fa-tag"></i>
+                <span>Type Projects</span>
             </a>
         </li>
     </ul>
