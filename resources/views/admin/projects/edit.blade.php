@@ -32,6 +32,15 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="technology" class="form-label d-block">Tecnologia</label>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    @foreach ($technologies as $technology)
+                        <input type="checkbox" class="btn-check" id="btncheck-{{$technology->id}}" value="{{$technology->id}}" name="technologies[]" @if ($errors->any() && in_array($technology->id, old('technologies', [])) || !$errors->any() && $project->technologies->contains($technology)) checked @endif>
+                        <label class="btn btn-outline-primary" for="btncheck-{{$technology->id}}">{{ $technology->name }}</label>
+                    @endforeach
+                </div>
+            </div>
+            <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>
                 <textarea name="description" id="description" class="form-control" cols="30" rows="10"> {{ old('description', $project->description) }} </textarea>
             </div>
