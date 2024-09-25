@@ -26,7 +26,6 @@ class ProjectSeeder extends Seeder
             $new_project->end_date = $faker->optional()->date;
             $new_project->status = $faker->randomElement(['in progress', 'completed', 'on hold']);
             $new_project->project_url = $faker->optional()->url;
-            $new_project->technologies = implode(', ', $faker->words(3));
 
             $new_project->save();
         }

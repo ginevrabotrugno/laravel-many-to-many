@@ -26,7 +26,6 @@ class ProjectsRequest extends FormRequest
             'start_date' => 'required',
             'status' => 'required|min:3|max:20',
             'project_url' => 'nullable|active_url',
-            'technologies' => 'min:3|max:255'
         ];
     }
 
@@ -40,8 +39,6 @@ class ProjectsRequest extends FormRequest
             'status.min' => 'Lo stato deve contenere almeno :min caratteri.',
             'status.max' => 'Lo stato non può superare i :max caratteri.',
             'project_url.active_url' => 'L\'URL del progetto deve essere valido.',
-            'technologies.min' => 'Le tecnologie devono contenere almeno :min caratteri.',
-            'technologies.max' => 'Le tecnologie non possono superare i :max caratteri.'
         ];
     }}
 

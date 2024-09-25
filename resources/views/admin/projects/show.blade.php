@@ -27,9 +27,6 @@
             </form>
         </h1>
 
-        @if ($project->technologies)
-            <h5 class="mx-4"> {{ $project->technologies }} </h5>
-        @endif
 
         <ul class="list-group list-group-flush m-3">
             @if ($project->type)

@@ -62,13 +62,6 @@
                     <small class="text-danger"> {{ $message }} </small>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="technologies" class="form-label">Tecnologie</label>
-                <input name="technologies" type="text" class="form-control @error('technologies') is-invalid @enderror" id="technologies" value=" {{ old('technologies') }}">
-                @error('technologies')
-                    <small class="text-danger"> {{ $message }} </small>
-                @enderror
-            </div>
             <button type="submit" class="btn btn-primary">Invia</button>
             <button type="reset" class="btn btn-secondary">Reset</button>
         </form>

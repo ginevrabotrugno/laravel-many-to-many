@@ -22,7 +22,6 @@ class Project extends Model
         'end_date',
         'status',
         'project_url',
-        'technologies'
     ];
 
     protected $casts =  [
