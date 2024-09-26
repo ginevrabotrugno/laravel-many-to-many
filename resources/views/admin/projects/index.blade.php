@@ -76,3 +76,7 @@
     </div>
 @endsection
 
+@section('title')
+    Projects
+@endsection
+

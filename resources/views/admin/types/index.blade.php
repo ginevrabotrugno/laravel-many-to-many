@@ -84,3 +84,7 @@
         }
     </script>
 @endsection
+
+@section('title')
+    Types
+@endsection

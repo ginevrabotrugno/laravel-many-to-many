@@ -10,7 +10,7 @@
 
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
-    <title>Laravel Auth</title>
+    <title>Portfolio | @yield('title')</title>
 </head>
 <body>
 

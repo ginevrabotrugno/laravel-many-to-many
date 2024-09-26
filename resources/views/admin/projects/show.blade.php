@@ -78,3 +78,7 @@
         </a>
     </div>
 @endsection
+
+@section('title')
+    Project Details
+@endsection

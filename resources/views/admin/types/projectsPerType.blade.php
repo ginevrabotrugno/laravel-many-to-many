@@ -20,3 +20,7 @@
 
     </div>
 @endsection
+
+@section('title')
+    Projects per Type
+@endsection

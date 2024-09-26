@@ -78,5 +78,9 @@
     </div>
 @endsection
 
+@section('title')
+    Edit Project
+@endsection
+
 
 

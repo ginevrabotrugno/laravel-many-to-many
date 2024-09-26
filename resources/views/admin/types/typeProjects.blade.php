@@ -21,3 +21,7 @@
         @endforeach
     </div>
 @endsection
+
+@section('title')
+    Type Projects
+@endsection
