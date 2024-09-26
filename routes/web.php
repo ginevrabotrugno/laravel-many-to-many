@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('/', [DashboardController::class, 'index'])->name('index');
         Route::get('projs-per-type', [TypeController::class, 'typeProjects'])->name('typeProjects');
         Route::get('projects-per-type/{type}', [TypeController::class, 'projectsPerType'])->name('projectsPerType');
+        Route::delete('projects/delete-multiple', [ProjectsController::class, 'deleteMultiple'])->name('deleteMultiple');
         Route::resource('projects', ProjectsController::class);
         Route::resource('types', TypeController::class)->except([
             'show', 'edit', 'create'

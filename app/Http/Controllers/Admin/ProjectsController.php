@@ -100,4 +100,15 @@ class ProjectsController extends Controller
 
         return redirect()->route('admin.projects.index')->with('deleted', 'Il Progetto è stato cancellato correttamente');
     }
+
+    public function deleteMultiple(Request $request){
+        $projectIds = $request->input('projects');
+
+        if ($projectIds) {
+            Project::whereIn('id', $projectIds)->delete();
+            return redirect()->route('admin.projects.index')->with('success', 'Progetti eliminati con successo.');
+        }
+
+        return redirect()->route('admin.projects.index')->with('error', 'Nessun progetto selezionato.');
+    }
 }
