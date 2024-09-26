@@ -16,9 +16,15 @@ class ProjectsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::orderBy('id', 'desc')->paginate(10);
+        if($request->has('search') && $request->search !== ''){
+            $search = $request->search;
+            $projects = Project::where('title', 'LIKE', "%{$search}%")->orderBy('id')->paginate(10);
+        } else {
+            $projects = Project::orderBy('id', 'desc')->paginate(10);
+        }
+
 
         return view('admin.projects.index', compact('projects'));
     }
