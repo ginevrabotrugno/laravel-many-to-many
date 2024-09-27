@@ -47,6 +47,14 @@ class ProjectsController extends Controller
     {
         $data = $request->all();
 
+        if (array_key_exists('img_path', $data)) {
+            $image_path = Storage::put('uploads', $data['img_path']);
+            $original_img_path = $request->file('img_path')->getClientOriginalName();
+        }
+
+
+        $data['img_path'] = $image_path;
+        $data['img_original_name'] = $original_img_path;
         $data['slug'] = Helper::generateSlug($data['title'], Project::class);
 
         $new_project = Project::create($data);

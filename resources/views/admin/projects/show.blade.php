@@ -68,6 +68,9 @@
             @endif
         </ul>
 
+        <img src="{{ asset('storage/' . $project->img_path) }}" alt="{{ $project->img_original_name }}">
+        <p>{{ asset('storage/' . $project->img_path) }}</p> <!-- Aggiungi questa linea per il debug -->
+
         <h3>Descrizione</h3>
         <p class="m-4">
             {{ $project->description }}

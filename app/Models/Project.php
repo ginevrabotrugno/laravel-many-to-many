@@ -21,6 +21,8 @@ class Project extends Model
         'title',
         'type_id',
         'slug',
+        'img_path',
+        'img_original_name',
         'description',
         'start_date',
         'end_date',

@@ -12,7 +12,7 @@
                 </ul>
             </div>
         @endif
-        <form action=" {{ route('admin.projects.store') }} " method="POST">
+        <form action=" {{ route('admin.projects.store') }} " method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo</label>
@@ -38,6 +38,10 @@
                         <label class="btn btn-outline-primary" for="btncheck-{{$technology->id}}">{{ $technology->name }}</label>
                     @endforeach
                 </div>
+            </div>
+            <div class="mb-3">
+                <label for="img_path" class="form-label">Immagine</label>
+                <input name="img_path" class="form-control" type="file" id="img_path">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>

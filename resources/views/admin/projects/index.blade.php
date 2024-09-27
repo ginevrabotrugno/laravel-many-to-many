@@ -109,7 +109,7 @@
                     </tbody>
                 </table>
             </form>
-            
+
             {{$projects->appends(['search' => request()->input('search')])->links()}}
 
         @endif
