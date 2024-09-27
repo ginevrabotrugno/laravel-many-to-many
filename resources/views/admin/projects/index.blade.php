@@ -96,19 +96,29 @@
                                     <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-warning">
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
-                                    <form action="{{route('admin.projects.destroy', $project)}}" method="POST" class="d-inline" onsubmit="return confirm('Sei sicuro di voler eliminare {{$project->title}}?')">
-                                    @csrf
-                                    @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
-                                    </form>
+                                    <a class="btn btn-danger" onclick="event.preventDefault();
+                                    document.getElementById('form-delete-{{$project->id}}').submit();">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </form>
+
+            @foreach ($projects as $project)
+                <form id="form-delete-{{$project->id}}" action="{{route('admin.projects.destroy', $project)}}" method="POST" class="d-none" onsubmit="return confirm('Sei sicuro di voler eliminare {{$project->title}}?')">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endforeach
+
+            {{-- <button type="submit" class="btn btn-danger">
+                <i class="fa-solid fa-trash-can"></i>
+            </button> --}}
+
 
             {{$projects->appends(['search' => request()->input('search')])->links()}}
 
