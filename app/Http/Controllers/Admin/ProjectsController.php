@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Functions\Helper;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project as XmlProject;
 
