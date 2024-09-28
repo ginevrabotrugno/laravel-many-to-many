@@ -40,7 +40,7 @@
             </div>
         @else
 
-            <form id="delete-multiple-form" action="{{ route('admin.deleteMultiple') }}" method="POST">
+            <form id="delete-multiple-form" action="{{ route('admin.deleteMultiple') }}" method="POST"  onsubmit="return confirm('Sei sicuro di voler eliminare i progetti selezionati?')">
                 @csrf
                 @method('DELETE')
 
@@ -188,7 +188,7 @@
                         selectedProjectIds.push(id);
                     }
                 });
-                
+
             } else {
                 // Deseleziona tutte le checkbox
                 checkboxes.forEach(checkbox => {
