@@ -68,8 +68,10 @@
             @endif
         </ul>
 
-        <img src="{{ asset('storage/' . $project->img_path) }}" alt="{{ $project->img_original_name }}">
-        <p>{{ asset('storage/' . $project->img_path) }}</p> <!-- Aggiungi questa linea per il debug -->
+        @if ($project->img_path)
+            <img src="{{ asset('storage/' . $project->img_path) }}" alt="{{ $project->img_original_name }}">
+            <p>{{ asset('storage/' . $project->img_path) }}</p> <!-- Aggiungi questa linea per il debug -->
+        @endif
 
         <h3>Descrizione</h3>
         <p class="m-4">
