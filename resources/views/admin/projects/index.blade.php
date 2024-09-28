@@ -128,7 +128,6 @@
     </div>
 
     <script>
-
         // Passa gli ID dei progetti dal backend al frontend
         const allProjectIds = @json($allProjs->pluck('id'));
 
@@ -165,16 +164,11 @@
 
                 // Abilita/disabilita il pulsante di eliminazione
                 document.getElementById('delete-selected-btn').disabled = selectedProjectIds.length === 0;
-
-                // Controlla se tutte le checkbox sono selezionate
-                const checkboxes = document.querySelectorAll('.project-checkbox');
-                const selectAllCheckbox = document.getElementById('select-all');
-                const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-                selectAllCheckbox.checked = allChecked;
             });
         });
 
         // Seleziona/deseleziona tutte le checkbox
+// Seleziona/deseleziona tutte le checkbox
         document.getElementById('select-all').addEventListener('change', function() {
             const checkboxes = document.querySelectorAll('.project-checkbox');
 
@@ -183,33 +177,28 @@
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = true;
                     const projectId = parseInt(checkbox.value);
-                    // Aggiungi l'ID all'array di selezionati se non è già presente
                     if (!selectedProjectIds.includes(projectId)) {
                         selectedProjectIds.push(projectId);
                     }
                 });
 
-                // Seleziona anche i progetti non visibili (non paginati)
+                // Aggiungi anche gli ID dei progetti non visibili
                 allProjectIds.forEach(id => {
                     if (!selectedProjectIds.includes(id)) {
                         selectedProjectIds.push(id);
                     }
                 });
+                
             } else {
                 // Deseleziona tutte le checkbox
                 checkboxes.forEach(checkbox => {
                     checkbox.checked = false;
-                    const projectId = parseInt(checkbox.value);
-                    // Rimuovi l'ID dall'array di selezionati
-                    selectedProjectIds = selectedProjectIds.filter(id => id !== projectId);
                 });
-
-                // Deseleziona anche i progetti non visibili
-                selectedProjectIds = [];
+                selectedProjectIds = []; // Svuota l'array di selezione
             }
 
-            console.log('Progetti Selezionati: ', selectedProjectIds);
-
+            // Aggiorna il pulsante di eliminazione
+            document.getElementById('delete-selected-btn').disabled = selectedProjectIds.length === 0;
 
             // Aggiorna localStorage
             localStorage.setItem('selectedProjectIds', JSON.stringify(selectedProjectIds));
