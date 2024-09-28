@@ -44,6 +44,8 @@
                 @csrf
                 @method('DELETE')
 
+                <input type="hidden" name="selected_projects" id="projects-input">
+
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="col">
                         <button type="submit" class="btn btn-danger mb-3" id="delete-selected-btn" disabled>Elimina Selezionati</button>
@@ -126,34 +128,102 @@
     </div>
 
     <script>
-        // Funzione che abilita/disabilita il bottone in base al numero di checkbox selezionate
-        function toggleDeleteButton() {
-            const selectedCheckboxes = document.querySelectorAll('.project-checkbox:checked');
-            const deleteButton = document.getElementById('delete-selected-btn');
-            // Disabilita il bottone se nessuna checkbox è selezionata
-            deleteButton.disabled = selectedCheckboxes.length === 0;
-        }
 
-        // Aggiunge un listener all'elemento "select-all"
-        document.getElementById('select-all').addEventListener('click', function(event) {
-            // prende tutte le checkbox
+        // Passa gli ID dei progetti dal backend al frontend
+        const allProjectIds = @json($allProjs->pluck('id'));
+
+        let selectedProjectIds = JSON.parse(localStorage.getItem('selectedProjectIds')) || [];
+
+        // Aggiorna lo stato delle checkbox al caricamento della pagina
+        document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('.project-checkbox');
+            const selectAllCheckbox = document.getElementById('select-all');
+
             checkboxes.forEach(checkbox => {
-                //checkbox.checked restituisce true o false ed è modificato dallo stato di select-all(event.target)
-                checkbox.checked = event.target.checked;
+                if (selectedProjectIds.includes(parseInt(checkbox.value))) {
+                    checkbox.checked = true;
+                }
             });
-            // Controlla se abilitare o disabilitare il bottone
-            toggleDeleteButton();
+
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            selectAllCheckbox.checked = allChecked;
+
+            // Abilita/disabilita il pulsante di eliminazione
+            document.getElementById('delete-selected-btn').disabled = selectedProjectIds.length === 0;
         });
 
-        // Seleziona tutte le checkbox con classe 'project-checkbox'
-        const checkboxes = document.querySelectorAll('.project-checkbox');
-        // Aggiunge un listener di eventi "change" a ogni checkbox per verificare quando cambiano
-        checkboxes.forEach(checkbox => {
-            // collega all'evento change della singola checkbox la funzione toggleDeleteButton
-            checkbox.addEventListener('change', toggleDeleteButton);
+        // Gestisci la selezione delle checkbox
+        document.querySelectorAll('.project-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const projectId = parseInt(this.value);
+                if (this.checked) {
+                    selectedProjectIds.push(projectId);
+                } else {
+                    selectedProjectIds = selectedProjectIds.filter(id => id !== projectId);
+                }
+                localStorage.setItem('selectedProjectIds', JSON.stringify(selectedProjectIds));
+
+                // Abilita/disabilita il pulsante di eliminazione
+                document.getElementById('delete-selected-btn').disabled = selectedProjectIds.length === 0;
+
+                // Controlla se tutte le checkbox sono selezionate
+                const checkboxes = document.querySelectorAll('.project-checkbox');
+                const selectAllCheckbox = document.getElementById('select-all');
+                const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+                selectAllCheckbox.checked = allChecked;
+            });
         });
 
+        // Seleziona/deseleziona tutte le checkbox
+        document.getElementById('select-all').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.project-checkbox');
+
+            if (this.checked) {
+                // Seleziona tutte le checkbox
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = true;
+                    const projectId = parseInt(checkbox.value);
+                    // Aggiungi l'ID all'array di selezionati se non è già presente
+                    if (!selectedProjectIds.includes(projectId)) {
+                        selectedProjectIds.push(projectId);
+                    }
+                });
+
+                // Seleziona anche i progetti non visibili (non paginati)
+                allProjectIds.forEach(id => {
+                    if (!selectedProjectIds.includes(id)) {
+                        selectedProjectIds.push(id);
+                    }
+                });
+            } else {
+                // Deseleziona tutte le checkbox
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                    const projectId = parseInt(checkbox.value);
+                    // Rimuovi l'ID dall'array di selezionati
+                    selectedProjectIds = selectedProjectIds.filter(id => id !== projectId);
+                });
+
+                // Deseleziona anche i progetti non visibili
+                selectedProjectIds = [];
+            }
+
+            console.log('Progetti Selezionati: ', selectedProjectIds);
+
+
+            // Aggiorna localStorage
+            localStorage.setItem('selectedProjectIds', JSON.stringify(selectedProjectIds));
+        });
+
+        // Funzione per gestire l'invio del modulo
+        document.getElementById('delete-multiple-form').addEventListener('submit', function(event) {
+            // Imposta il valore dell'input hidden con l'array degli ID selezionati
+            const projectsInput = document.getElementById('projects-input');
+            projectsInput.value = JSON.stringify(selectedProjectIds); // Converti l'array in JSON
+
+            // Svuota localStorage dopo aver salvato gli ID
+            localStorage.removeItem('selectedProjectIds');
+        });
     </script>
 
 @endsection

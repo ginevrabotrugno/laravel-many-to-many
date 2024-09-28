@@ -19,6 +19,8 @@ class ProjectsController extends Controller
      */
     public function index(Request $request)
     {
+        $allProjs = Project::all();
+
         if($request->has('search') && $request->search !== ''){
             $search = $request->search;
             $projects = Project::where('title', 'LIKE', "%{$search}%")->orderBy('id')->paginate(10);
@@ -27,7 +29,8 @@ class ProjectsController extends Controller
         }
 
 
-        return view('admin.projects.index', compact('projects'));
+
+        return view('admin.projects.index', compact('projects', 'allProjs'));
     }
 
     /**
@@ -117,7 +120,7 @@ class ProjectsController extends Controller
     }
 
     public function deleteMultiple(Request $request){
-        $projectIds = $request->input('projects');
+        $projectIds = json_decode($request->input('selected_projects'));
 
         if ($projectIds) {
             Project::whereIn('id', $projectIds)->delete();
