@@ -128,15 +128,15 @@
     </div>
 
     <script>
-        // Passa gli ID dei progetti dal backend al frontend
-        const allProjectIds = @json($allProjs->pluck('id'));
+        // Passo gli ID dei progetti dal backend al frontend
+        const allProjectIds = @json($allProjs->pluck('id')); //Devo convertire l'array php in Json così che possa essere utilizzato da Javascript
 
-        let selectedProjectIds = JSON.parse(localStorage.getItem('selectedProjectIds')) || [];
+        let selectedProjectIds = JSON.parse(localStorage.getItem('selectedProjectIds')) || []; //Devo parsare l'array JS in json per salvarlo in localstorage, se non lo trova restituisce un array vuoto
 
-        // Aggiorna lo stato delle checkbox al caricamento della pagina
+        // Aggiorna lo stato delle checkbox al caricamento della pagina, e quindi anche al cambio pagina dell'elenco projects
         document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = document.querySelectorAll('.project-checkbox');
-            const selectAllCheckbox = document.getElementById('select-all');
+            const checkboxes = document.querySelectorAll('.project-checkbox'); //tutte le checkbox
+            const selectAllCheckbox = document.getElementById('select-all'); //checkbox select-all
 
             checkboxes.forEach(checkbox => {
                 if (selectedProjectIds.includes(parseInt(checkbox.value))) {
@@ -144,6 +144,7 @@
                 }
             });
 
+            //sempre al caricamento della pagina aggiorna lo stato di select-all
             const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
             selectAllCheckbox.checked = allChecked;
 
@@ -168,7 +169,6 @@
         });
 
         // Seleziona/deseleziona tutte le checkbox
-// Seleziona/deseleziona tutte le checkbox
         document.getElementById('select-all').addEventListener('change', function() {
             const checkboxes = document.querySelectorAll('.project-checkbox');
 

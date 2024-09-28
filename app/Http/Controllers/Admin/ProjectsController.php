@@ -120,6 +120,8 @@ class ProjectsController extends Controller
     }
 
     public function deleteMultiple(Request $request){
+        
+        //Ritrasformo il Json Javascript con l'array di Id selezionati in un array Php
         $projectIds = json_decode($request->input('selected_projects'));
 
         if ($projectIds) {
